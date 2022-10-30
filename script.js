@@ -1,8 +1,10 @@
+//updates time
 function updateTime() {
     let today = moment();
-
     $("#currentDay").text(today.format("dddd, MMMM Do YYYY, h:mm.ss"));
 
+    //changes colour of time time block
+    //grey:past, red:present, green:future
     var now = moment().format("kk");
     for (var i = 0; i < scheduleElArray.length; i++) {
         scheduleElArray[i].removeClass("future past present");
@@ -20,6 +22,7 @@ function updateTime() {
     }
 }
 
+//text area elements
 var schedule9am = $("#9AM");
 var schedule10am = $("#10AM");
 var schedule11am = $("#11AM");
@@ -46,6 +49,7 @@ renderLastRegistered();
 updateTime();
 setInterval(updateTime, 1000); 
 
+//local storage
 function renderLastRegistered() {
     for (var el of scheduleElArray) {
         el.val(localStorage.getItem("time block " + el.data("hour")));
@@ -53,6 +57,7 @@ function renderLastRegistered() {
     }
 }
 
+//function for handling clicks
 function handleFormSubmit(event) {
     event.preventDefault();
 
@@ -64,5 +69,7 @@ function handleFormSubmit(event) {
 
     localStorage.setItem("time block " +  targetTimeBlock, targetText.val());
 }
+
+//save button
 var saveBttn = $(".save-icon");
 saveBttn.on("click", handleFormSubmit);
